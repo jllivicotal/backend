@@ -19,11 +19,12 @@ API REST y GraphQL para la gestión integral de empleados construida con Node.js
 
 - ✅ **API REST completa** con operaciones CRUD
 - ✅ **API GraphQL** con queries y mutations
+- ✅ **Servir aplicaciones Angular** (SPA) como contenido estático
 - ✅ **Base de datos MongoDB** con Mongoose
 - ✅ **Pruebas unitarias** con Jest y Supertest (96% cobertura)
 - ✅ **Variables de entorno** con dotenv
 - ✅ **Validación de datos** con Mongoose schemas
-- ✅ **CORS habilitado** para desarrollo
+- ✅ **CORS habilitado** para aceptar peticiones desde cualquier cliente
 - ✅ **Logging** con Morgan
 - ✅ **Hot reload** con Nodemon
 
