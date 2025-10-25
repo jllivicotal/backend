@@ -4,21 +4,36 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage --verbose",
+    "test:watch": "jest --watch",
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "grafbase": "grafbase dev",
+    "grafbase:build": "grafbase build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@apollo/server": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "grafbase": "^0.104.0",
+    "graphql": "^16.11.0",
+    "graphql-tag": "^2.12.6",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.0",
     "morgan": "^1.10.1",
     "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "@grafbase/sdk": "^0.27.4",
+    "@types/jest": "^30.0.0",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.2.0",
+    "mongodb-memory-server": "^10.2.3",
+    "supertest": "^7.1.4"
   }
 }

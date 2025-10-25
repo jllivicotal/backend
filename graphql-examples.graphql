@@ -1,0 +1,470 @@
+# ========================================
+# QUERIES - Consultas de datos
+# ========================================
+
+# 1. Obtener todos los empleados
+query ObtenerTodosLosEmpleados {
+  empleados {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+    createdAt
+    updatedAt
+  }
+}
+
+# 2. Obtener un empleado por ID
+query ObtenerEmpleadoPorID {
+  empleado(id: "REEMPLAZAR_CON_ID_REAL") {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+    createdAt
+  }
+}
+
+# 3. Buscar empleados por nombre
+query BuscarPorNombre {
+  buscarEmpleados(filtros: { nombre: "Juan" }) {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+  }
+}
+
+# 4. Buscar empleados por departamento
+query BuscarPorDepartamento {
+  buscarEmpleados(filtros: { departamento: "Tecnología" }) {
+    id
+    nombre
+    cargo
+    sueldo
+  }
+}
+
+# 5. Buscar por rango salarial
+query BuscarPorRangoSalarial {
+  buscarEmpleados(filtros: { sueldoMin: 3000, sueldoMax: 6000 }) {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+  }
+}
+
+# 6. Búsqueda combinada
+query BusquedaAvanzada {
+  buscarEmpleados(
+    filtros: {
+      departamento: "Tecnología"
+      sueldoMin: 4000
+      cargo: "Desarrollador"
+    }
+  ) {
+    id
+    nombre
+    cargo
+    sueldo
+  }
+}
+
+# 7. Empleados por departamento específico
+query EmpleadosPorDepartamento {
+  empleadosPorDepartamento(departamento: "Tecnología") {
+    id
+    nombre
+    cargo
+    sueldo
+  }
+}
+
+# 8. Empleados por rango de sueldo
+query EmpleadosPorSueldo {
+  empleadosPorSueldo(min: 3000, max: 7000) {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+  }
+}
+
+# 9. Estadísticas generales
+query ObtenerEstadisticas {
+  estadisticasEmpleados {
+    total
+    sueldoPromedio
+    sueldoMinimo
+    sueldoMaximo
+    sueldoTotal
+  }
+}
+
+# 10. Lista de departamentos únicos
+query ListarDepartamentos {
+  departamentos
+}
+
+# 11. Lista de cargos únicos
+query ListarCargos {
+  cargos
+}
+
+# 12. Query combinada - Dashboard completo
+query Dashboard {
+  empleados {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+  }
+  estadisticasEmpleados {
+    total
+    sueldoPromedio
+    sueldoMinimo
+    sueldoMaximo
+  }
+  departamentos
+  cargos
+}
+
+# ========================================
+# MUTATIONS - Modificación de datos
+# ========================================
+
+# 1. Crear un empleado
+mutation CrearUnEmpleado {
+  crearEmpleado(
+    input: {
+      nombre: "Juan Pérez"
+      cargo: "Desarrollador Senior"
+      departamento: "Tecnología"
+      sueldo: 5000
+    }
+  ) {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+    createdAt
+  }
+}
+
+# 2. Crear empleado con variables
+mutation CrearEmpleadoConVariables($input: EmpleadoInput!) {
+  crearEmpleado(input: $input) {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+  }
+}
+
+# Variables para la mutation anterior:
+# {
+#   "input": {
+#     "nombre": "María García",
+#     "cargo": "Gerente de Proyectos",
+#     "departamento": "Administración",
+#     "sueldo": 7000
+#   }
+# }
+
+# 3. Actualizar empleado
+mutation ActualizarEmpleado {
+  actualizarEmpleado(
+    id: "REEMPLAZAR_CON_ID_REAL"
+    input: {
+      cargo: "Arquitecto de Software"
+      sueldo: 6500
+    }
+  ) {
+    id
+    nombre
+    cargo
+    sueldo
+    updatedAt
+  }
+}
+
+# 4. Actualizar con variables
+mutation ActualizarEmpleadoConVariables($id: ID!, $input: EmpleadoUpdateInput!) {
+  actualizarEmpleado(id: $id, input: $input) {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+    updatedAt
+  }
+}
+
+# Variables:
+# {
+#   "id": "REEMPLAZAR_CON_ID_REAL",
+#   "input": {
+#     "sueldo": 6000
+#   }
+# }
+
+# 5. Eliminar empleado
+mutation EliminarEmpleado {
+  eliminarEmpleado(id: "REEMPLAZAR_CON_ID_REAL") {
+    message
+    success
+  }
+}
+
+# 6. Crear múltiples empleados
+mutation CrearVariosEmpleados {
+  crearEmpleados(
+    input: [
+      {
+        nombre: "Pedro Sánchez"
+        cargo: "DevOps Engineer"
+        departamento: "Tecnología"
+        sueldo: 5500
+      }
+      {
+        nombre: "Ana López"
+        cargo: "Desarrolladora Frontend"
+        departamento: "Tecnología"
+        sueldo: 4800
+      }
+      {
+        nombre: "Carlos Rodríguez"
+        cargo: "Analista de Datos"
+        departamento: "Finanzas"
+        sueldo: 4500
+      }
+    ]
+  ) {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+  }
+}
+
+# 7. Eliminar empleados por departamento
+mutation EliminarPorDepartamento {
+  eliminarEmpleadosPorDepartamento(departamento: "Marketing") {
+    message
+    success
+  }
+}
+
+# 8. Aumentar sueldo por departamento
+mutation AumentarSueldoDepartamento {
+  aumentarSueldoPorDepartamento(
+    departamento: "Tecnología"
+    porcentaje: 10
+  ) {
+    id
+    nombre
+    cargo
+    sueldo
+  }
+}
+
+# ========================================
+# WORKFLOWS COMPLETOS
+# ========================================
+
+# Workflow 1: Crear y consultar
+mutation Paso1_CrearEmpleados {
+  crearEmpleados(
+    input: [
+      {
+        nombre: "Laura Martínez"
+        cargo: "UX Designer"
+        departamento: "Diseño"
+        sueldo: 4200
+      }
+      {
+        nombre: "Roberto Silva"
+        cargo: "Product Manager"
+        departamento: "Producto"
+        sueldo: 6800
+      }
+    ]
+  ) {
+    id
+    nombre
+  }
+}
+
+query Paso2_VerTodos {
+  empleados {
+    id
+    nombre
+    cargo
+    departamento
+    sueldo
+  }
+}
+
+query Paso3_VerEstadisticas {
+  estadisticasEmpleados {
+    total
+    sueldoPromedio
+    sueldoMinimo
+    sueldoMaximo
+  }
+}
+
+# Workflow 2: Gestión de departamento
+query Workflow2_Paso1_VerDepartamento {
+  empleadosPorDepartamento(departamento: "Tecnología") {
+    id
+    nombre
+    cargo
+    sueldo
+  }
+}
+
+mutation Workflow2_Paso2_AumentarSueldo {
+  aumentarSueldoPorDepartamento(
+    departamento: "Tecnología"
+    porcentaje: 15
+  ) {
+    id
+    nombre
+    cargo
+    sueldo
+  }
+}
+
+query Workflow2_Paso3_VerCambios {
+  empleadosPorDepartamento(departamento: "Tecnología") {
+    id
+    nombre
+    sueldo
+  }
+  estadisticasEmpleados {
+    sueldoPromedio
+  }
+}
+
+# Workflow 3: Búsqueda y actualización
+query Workflow3_Paso1_BuscarCandidatos {
+  buscarEmpleados(
+    filtros: {
+      cargo: "Desarrollador"
+      sueldoMax: 5000
+    }
+  ) {
+    id
+    nombre
+    cargo
+    sueldo
+  }
+}
+
+mutation Workflow3_Paso2_Promocionar {
+  actualizarEmpleado(
+    id: "REEMPLAZAR_CON_ID_REAL"
+    input: {
+      cargo: "Desarrollador Senior"
+      sueldo: 5500
+    }
+  ) {
+    id
+    nombre
+    cargo
+    sueldo
+  }
+}
+
+# ========================================
+# EJEMPLOS CON FRAGMENTOS
+# ========================================
+
+fragment EmpleadoCompleto on Empleado {
+  id
+  nombre
+  cargo
+  departamento
+  sueldo
+  createdAt
+  updatedAt
+}
+
+fragment EmpleadoBasico on Empleado {
+  id
+  nombre
+  cargo
+  sueldo
+}
+
+query UsandoFragmentos {
+  empleados {
+    ...EmpleadoBasico
+  }
+  empleado(id: "REEMPLAZAR_CON_ID_REAL") {
+    ...EmpleadoCompleto
+  }
+}
+
+# ========================================
+# EJEMPLOS CON ALIAS
+# ========================================
+
+query UsandoAlias {
+  tecnologia: empleadosPorDepartamento(departamento: "Tecnología") {
+    id
+    nombre
+    sueldo
+  }
+  finanzas: empleadosPorDepartamento(departamento: "Finanzas") {
+    id
+    nombre
+    sueldo
+  }
+  todosLosEmpleados: empleados {
+    id
+    nombre
+    departamento
+  }
+}
+
+# ========================================
+# QUERY DE INTROSPECCIÓN
+# ========================================
+
+# Ver el schema completo
+query IntrospectionSchema {
+  __schema {
+    types {
+      name
+      description
+    }
+  }
+}
+
+# Ver detalles de un tipo específico
+query IntrospectionEmpleado {
+  __type(name: "Empleado") {
+    name
+    description
+    fields {
+      name
+      description
+      type {
+        name
+        kind
+      }
+    }
+  }
+}
