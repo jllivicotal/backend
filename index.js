@@ -6,12 +6,11 @@ const resolvers = require('./src/graphql/resolvers');
 const app = require('./app');
 
 async function startServer() {
-    // Crear instancia de Apollo Server
+    // Crear instancia de Apollo Server con CORS habilitado
     const apolloServer = new ApolloServer({
         typeDefs,
         resolvers,
-        // Activar introspección y playground en todos los entornos
-        introspection: true,
+        introspection: true, // Habilitar introspección
         formatError: (error) => {
             console.error('GraphQL Error:', error);
             return {
@@ -34,12 +33,16 @@ async function startServer() {
     console.log('🚀 Apollo Server iniciado correctamente');
     console.log(`🚀 GraphQL API: ${url}`);
     console.log(`📚 GraphQL Playground: ${url}`);
+    console.log('✅ CORS: Acepta peticiones desde cualquier origen');
 
     // Iniciar servidor Express para REST API
     app.listen(app.get('puerto'), () => {
+        console.log('========================================');
         console.log('Nombre de la App:', app.get('nombreApp'));
         console.log('Puerto del servidor:', app.get('puerto'));
         console.log(`🌐 REST API: http://localhost:${app.get('puerto')}/api`);
+        console.log('✅ CORS: Acepta peticiones desde cualquier origen');
+        console.log('========================================');
     });
 }
 
